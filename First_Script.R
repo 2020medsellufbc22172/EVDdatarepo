@@ -22,10 +22,20 @@ remotes::install_github("reconhub/linelist")
 
 remotes::install_github("reconhub/earlyR")
 
-
-
 remotes::install_github("reconhub/projections")
 
+library(rio)
+library(ggplot2)
+library(dplyr)
+library(magrittr)
+library(outbreaks)
+library(incidence)
+library(epicontacts)
+library(linelist)
+library(distcrete)
+library(epitrix)
+library(earlyR)
+library(projections)
 
 
 
