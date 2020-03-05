@@ -14,6 +14,12 @@ install.packages("epitrix")
 
 ## instructions for github packages (latest versions)
 library(devtools)
-install_github("tidyverse/ggplot2")
+install.packages("reconhub")
+library(reconhub)
+install_github("reconhub/epicontacts")
+
+remotes::install_github("reconhub/linelist")
+remotes::install_github("reconhub/earlyR")
+remotes::install_github("reconhub/projections")
 
 
