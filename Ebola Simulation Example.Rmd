@@ -1,0 +1,81 @@
+---
+title: "Ebola Simulation Example"
+author: "Mohamed Sellu"
+date: "10/03/2020"
+output:
+  pdf_document: default
+  html_document: default
+  word_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+install.packages("devtools")
+library(devtools)
+
+## instructions for CRAN packages
+
+install.packages("rio")
+install.packages("ggplot2")
+install.packages("dplyr")
+install.packages("magrittr")
+install.packages("outbreaks")
+install.packages("incidence")
+install.packages("discrete")
+install.packages("epitrix")
+install.packages("epicontacts")
+install.packages("visNetwork")
+
+library(rio)
+library(ggplot2)
+library(dplyr)
+library(magrittr)
+library(outbreaks)
+library(incidence)
+library(epicontacts)
+library(linelist)
+library(distcrete)
+library(epitrix)
+library(earlyR)
+library(projections)
+library(visNetwork)
+
+contact_raw<-linelist::clean_data(phm_evd_contacts_2017_10_27)
+linelist_raw<-linelist::clean_data(phm_evd_linelist_2017_10_27)
+cleaning_rules<-linelist::clean_data(phm_evd_cleaning_rules)
+
+
+linelist<-linelist_raw %>%
+clean_data(wordlists = cleaning_rules)%>%
+  mutate_at(vars(contains("date")),guess_dates)
+    
+contacts<-clean_data(contact_raw)
+ 
+x<-make_epicontacts(linelist, contacts)
+
+p <- plot(x, node_shape = "sex",
+          shapes = c(male = "male", female = "female", unknown = "question-circle"),
+          selector = FALSE)
+
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+p <- plot(x, node_shape = "sex",
+          shapes = c(male = "male", female = "female", unknown = "question-circle"),
+          selector = FALSE)
+show(p)
+
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
